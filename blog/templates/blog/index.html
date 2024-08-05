@@ -6,17 +6,19 @@
 
        <!-- Page Content -->
     <!-- Banner Starts Here -->
+     {% for object in objects %}
+
     <div class="main-banner header-text">
       <div class="container-fluid">
         <div class="owl-banner owl-carousel">
           <div class="item">
-            <img src=" {% static 'images/banner-item-01.jpg' %} " alt="">
+            <img src="{{ object.image.url }}" alt="">
             <div class="item-content">
               <div class="main-content">
                 <div class="meta-category">
-                  <span>Fashion</span>
+                  <span>{{ object.category }}</span>
                 </div>
-                <a href="post-details.html"><h4>Morbi dapibus condimentum</h4></a>
+                <a href="post-details.html"><h4>{{ object.title }}</h4></a>
                 <ul class="post-info">
                   <li><a href="#">Admin</a></li>
                   <li><a href="#">May 12, 2020</a></li>
@@ -29,6 +31,8 @@
         </div>
       </div>
     </div>
+
+    {% endfor %}
 
 
     <section class="blog-posts">
