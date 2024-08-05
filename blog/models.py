@@ -10,3 +10,4 @@ class Article(models.Model):
     image = models.ImageField(upload_to='article')
     category = models.ForeignKey(Category , on_delete=models.CASCADE)
     banner = models.ImageField(upload_to='article' ,help_text='best size for banner:770x340')
+    status = models.BooleanField(default=False)
