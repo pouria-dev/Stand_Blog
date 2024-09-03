@@ -14,12 +14,16 @@ def login_user(request):
         login(request, user)
         messages.success(request, 'You have singed up successfully.')
 
+        return redirect(reverse('blog:home'))
+
 
 
     return render(request , 'user_app/login.html' , {})
 
 
-
 def log_out(request):
-    logout(request , user)
+    logout(request)
+    return redirect('/')
+
+
 

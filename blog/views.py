@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Article
+from .models import Article ,Category
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -11,9 +12,19 @@ def index(request):
 
 def article(request):
     article = Article.objects.filter(status=True)
-    return render(request , 'blog/blog.html' , {'objects':article})
+    paginator = Paginator(article, 4)  # Show 25 contacts per page.
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request , 'blog/blog.html' , {'objects':page_obj})
 
 def article_detail(request, slug):
     article = get_object_or_404(Article , slug=slug)
     return render(request , 'blog/article-details.html' ,{'objects':article})
 
+
+def category_detail(request , pk=None):
+    category = get_object_or_404(Category  , id=pk)
+    articles = category.article_set.all()
+
+    return render(request , 'blog/blog.html' , {'objects':articles})
