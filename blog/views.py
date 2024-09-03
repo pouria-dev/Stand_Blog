@@ -25,6 +25,6 @@ def article_detail(request, slug):
 
 def category_detail(request , pk=None):
     category = get_object_or_404(Category  , id=pk)
-    articles = category.article_set.all()
+    articles = category.articles.all()
 
     return render(request , 'blog/blog.html' , {'objects':articles})

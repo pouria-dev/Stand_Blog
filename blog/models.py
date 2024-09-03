@@ -14,7 +14,7 @@ class Article(models.Model):
     title = models.CharField(max_length=20 ,help_text="It should be unique")
     text = models.TextField()
     image = models.ImageField(upload_to='article/image')
-    category = models.ForeignKey(Category , on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category ,related_name='articles')
     banner = models.ImageField(upload_to='article/banner' ,help_text='best size for banner:770x340')
     status = models.BooleanField(default=False)
     slug = models.SlugField(null=True , unique=True ,blank=True,default=1)

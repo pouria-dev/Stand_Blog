@@ -4,10 +4,8 @@
 {% block content %}
 
 
-    <!-- Page Content -->
-    <!-- Banner Starts Here -->
 
-
+<body>
     <div class="main-banner header-text">
         <div class="container-fluid">
 
@@ -35,8 +33,6 @@
 
         </div>
     </div>
-
-
 
 
     <section class="blog-posts">
@@ -76,9 +72,8 @@
                                                         <ul class="post-share">
 
 
-
                                                             {% post_to_telegram "New Song: " object_or_url %}
-                                                            <li><i class="fa fa-share-alt" ></i></li>
+                                                            <li><i class="fa fa-share-alt"></i></li>
                                                             <li> {% post_to_facebook object_or_url "<p style='color: green;'>facebook</p>" %}</li>
 
                                                             <li>{% post_to_linkedin %}</li>
