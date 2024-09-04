@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="down-content">
                                             <span>{{ object.category }}</span>
-                                            <a href="{% url 'blog:detail' object.id %}"><h4>{{ object.title }}</h4></a>
+                                            <a href="{{object.get_absolute_url}}"><h4>{{ object.title }}</h4></a>
                                             <ul class="post-info">
                                                 <li><a href="#">Admin</a></li>
                                                 <li><a href="#">May 31, 2020</a></li>
