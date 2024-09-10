@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -35,6 +36,20 @@ class Article(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+class Comment(models.Model):
+    article = models.ForeignKey(Article , on_delete=models.CASCADE , related_name="comments")
+    author = models.ForeignKey(User , on_delete=models.CASCADE , related_name='comments')
+
+    parent = models.ForeignKey('self' , on_delete=models.CASCADE, related_name='replies',null=True , blank=True)
+
+    text = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"{self.author.username}------{self.text[:30]}"
+
 
 
 

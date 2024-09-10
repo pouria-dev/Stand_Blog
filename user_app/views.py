@@ -23,8 +23,10 @@ def login_user(request):
 
 
 def log_out(request):
-    logout(request)
-    return redirect('/')
+    if request.method == "POST":
+
+        logout(request)
+        return redirect(reverse('blog:home'))
 
 
 
