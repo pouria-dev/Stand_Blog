@@ -1,5 +1,26 @@
 from django import forms
-
+from django.core.validators import ValidationError
 class Contact_Form(forms.Form):
     name = forms.CharField(max_length=10 , label="Name")
-    text = forms.CharField(widget=forms.Textarea)
+    text = forms.CharField(widget=forms.Textarea , label="Text")
+    email = forms.EmailField(label="Email:")
+
+
+    def clean(self):
+        name = self.cleaned_data.get('name')
+        text = self.cleaned_data.get('text')
+
+        if name == text :
+            raise ValidationError("name and text are same" , code='name and text')
+
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+
+        if "p" in name:
+            return  ValidationError("no")
+
+
+
+
+

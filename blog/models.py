@@ -1,6 +1,9 @@
+
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -53,4 +56,6 @@ class Comment(models.Model):
 
 class Message(models.Model):
     name = models.CharField(max_length=10)
-    text= models.TextField()
+    text = models.TextField()
+    email = models.EmailField(null=True)
+    created = models.DateTimeField(default=timezone.now())

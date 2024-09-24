@@ -11,17 +11,32 @@ def index(request):
 
     return render(request , 'blog/index.html' , {'objects':article , 'article_ordring':article_ordring })
 
+
+
 def contact(request):
     if request.method == "POST":
-        forms = Contact_Form(request.POST)
-        if forms.is_valid():
-            name = forms.cleaned_data['name']
-            text = forms.cleaned_data['text']
-            Message.objects.create(name=name ,text=text )
+        # create a form instance and populate it with data from the request:
+        form = Contact_Form(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            name = form.cleaned_data["name"]
+            text = form.cleaned_data["text"]
+            email = form.cleaned_data["email"]
+            Message.objects.create(name=name , text = text , email=email)
 
-            return redirect(reverse('blog:home'))
-    form = Contact_Form()
-    return render(request , 'blog/contact.html' , {'form': form} )
+            # redirect to a new URL:
+            return redirect(reverse("blog:home"))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = Contact_Form()
+
+    return render(request, "blog/contact.html", {"form": form})
+
+
+
 
 def article(request):
     article = Article.objects.filter(status=True)
