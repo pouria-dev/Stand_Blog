@@ -1,7 +1,7 @@
 
-
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.functions import datetime
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -43,8 +43,8 @@ class Article(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments' , null=True , blank=True)
+    
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='replies', null=True, blank=True)
 
     text = models.TextField()
@@ -54,8 +54,14 @@ class Comment(models.Model):
         return f"{self.author.username}------{self.text[:30]}"
 
 
+
+
+
+
 class Message(models.Model):
     name = models.CharField(max_length=10)
     text = models.TextField()
     email = models.EmailField(null=True)
-    created = models.DateTimeField(default=timezone.now())
+    created = models.DateTimeField(auto_now_add=True)
+
+

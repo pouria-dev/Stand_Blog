@@ -1,5 +1,9 @@
 from django import forms
 from django.core.validators import ValidationError
+from .models import Comment
+from django.contrib.auth import aauthenticate
+from django.contrib.auth.models import User
+
 class Contact_Form(forms.Form):
     name = forms.CharField(max_length=10 , label="Name")
     text = forms.CharField(widget=forms.Textarea , label="Text")
@@ -19,6 +23,16 @@ class Contact_Form(forms.Form):
 
         if "p" in name:
             return  ValidationError("no")
+        
+
+class Comment_Form(forms.Form):
+    
+    text = forms.CharField(widget=forms.Textarea , label="Text")    
+    
+        
+    
+
+
 
 
 

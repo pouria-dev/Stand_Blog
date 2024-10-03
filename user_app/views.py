@@ -22,11 +22,8 @@ def login_user(request):
     return render(request , 'user_app/login.html' , {})
 
 
-def log_out(request):
-    if request.method == "POST":
 
-        logout(request)
-        return redirect(reverse('blog:home'))
-
+def logout_view(request):
+    logout(request)
 
 

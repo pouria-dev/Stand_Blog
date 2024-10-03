@@ -1,15 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 from .models import Article ,Category
-from .forms import Contact_Form
+from .forms import Contact_Form , Comment_Form
 from django.core.paginator import Paginator
 from .models import Comment , Message
 from django.urls import reverse
+
+
+
+
 
 def index(request):
     article = Article.objects.filter(status=True)
     article_ordring = Article.objects.all()[:3]
 
     return render(request , 'blog/index.html' , {'objects':article , 'article_ordring':article_ordring })
+
 
 
 
@@ -50,10 +56,26 @@ def article(request):
 
 def article_detail(request, slug):
     article = get_object_or_404(Article , slug=slug)
+    comment = Comment.objects.all()
+
     if request.method == "POST":
-        text = request.POST.get('text')
-        Comment.objects.create(post=article , author=request.user ,text = text)
-    return render(request , 'blog/article-details.html' ,{'objects':article})
+        form = Comment_Form(request.POST)
+
+        if form.is_valid():
+            text = form.cleaned_data['text']
+
+            Comment.objects.create(text=text , post=article  )
+
+        
+    else:
+        form = Comment_Form()
+
+   
+
+
+    return render(request , 'blog/article-details.html' ,{'objects':article ,
+                                                          'comments':comment,
+                                                          "form":form})
 
 
 def category_detail(request , pk=None):
@@ -61,3 +83,6 @@ def category_detail(request , pk=None):
     articles = category.articles.all()
 
     return render(request , 'blog/blog.html' , {'objects':articles})
+
+
+
